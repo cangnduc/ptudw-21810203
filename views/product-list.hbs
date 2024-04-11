@@ -1,0 +1,75 @@
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><a href="/products">Products</a></li>
+      <li class="breadcrumb-item active">product list</li>
+    </ul>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Product List Start -->
+<div class="product-view">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="product-search">
+                  <input type="email" value="Search" />
+                  <button><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="product-short">
+                  <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                      >Product sort by {{sortName}}</a
+                    >
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a href="{{orginalUrl}}&sort=price" class="dropdown-item"
+                        >Price</a
+                      >
+                      <a href="{{orginalUrl}}&sort=newest" class="dropdown-item"
+                        >Newest</a
+                      >
+                      <a
+                        href="{{orginalUrl}}&sort=popular"
+                        class="dropdown-item"
+                        >Popular</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{#each rows}}
+          <div class="col-lg-4">{{> product}}</div>
+          {{/each}}
+        </div>
+
+        <div class="col-lg-12">
+          <nav aria-label="Page navigation example" id="pagination">
+            {{{createPagination pagination leftText="Previous" rightText="Next"
+            paginationClass="pagination justify-content-center"
+            itemClass="page-item" linkClass="page-link"}}}
+          </nav>
+        </div>
+      </div>
+
+      {{> left-column}}
+    </div>
+  </div>
+</div>
+<!-- Product List End -->
+<script>
+  document.querySelectorAll("#pagination li").forEach((item) => {
+    item.classList.add("page-item");
+    item.querySelector("a").classList.add("page-link");
+  });
+</script>

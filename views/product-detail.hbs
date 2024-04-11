@@ -1,0 +1,152 @@
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#">Products</a></li>
+      <li class="breadcrumb-item active">product details</li>
+    </ul>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Product Detail Start -->
+<div class="product-detail">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9">
+        {{#with product}}
+        <div class="row align-items-center product-detail-top">
+          <div class="col-md-5">
+            <div class="product-slider-single">
+              {{#each Images}}
+              <img src="{{imagePath}}" alt="{{name}}" />
+              {{/each}}
+            </div>
+          </div>
+
+          <div class="col-md-7">
+            <div class="product-content">
+              <div class="title"><h2>{{name}}</h2></div>
+              <div class="ratting">{{{renderStar stars}}}</div>
+              <div class="price">${{oldPrice}} <span>${{price}}</span></div>
+              <div class="details">
+                <p>{{summary}}</p>
+              </div>
+
+              <div class="quantity">
+                <h4>Quantity:</h4>
+                <div class="qty">
+                  <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                  <input type="number" value="1" id="item-quantity" readonly />
+                  <button  class="btn-plus"><i class="fa fa-plus"></i></button>
+                </div>
+              </div>
+              <div class="action">
+                <a onclick="addCart({{id}},document.getElementById('item-quantity').value,event)" href="#"><i class="fa fa-cart-plus"></i></a>
+                <a href="#"><i class="fa fa-heart"></i></a>
+                <a href="#"><i class="fa fa-search"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row product-detail-bottom">
+          <div class="col-lg-12">
+            <ul class="nav nav-pills nav-justified">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  data-toggle="pill"
+                  href="#description"
+                  >Description</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#specification"
+                  >Specification</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#reviews"
+                  >Reviews ({{Reviews.length}})</a
+                >
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <div id="description" class="container tab-pane active">
+                <br />
+                <h4>Product description</h4>
+                <p>{{description}}</p>
+              </div>
+              <div id="specification" class="container tab-pane fade">
+                <br />
+                <h4>Product specification</h4>
+                <p>{{specification}}</p>
+              </div>
+              <div id="reviews" class="container tab-pane fade">
+                <br />
+                {{#each Reviews}}
+                <div class="reviews-submitted">
+                  <div class="reviewer">
+                    {{User.firstName}} {{User.lastName}} -
+                    <span>{{createdAt}}</span>
+                  </div>
+                  <div class="ratting">{{{renderStar stars}}}</div>
+                  <p>{{review}}</p>
+                </div>
+                {{/each}}
+                <div class="reviews-submit">
+                  <h4>Give your Review:</h4>
+                  <div class="ratting">
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                  </div>
+                  <div class="row form">
+                    <div class="col-sm-6">
+                      <input type="text" placeholder="Name" />
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="email" placeholder="Email" />
+                    </div>
+                    <div class="col-sm-12">
+                      <textarea placeholder="Review"></textarea>
+                    </div>
+                    <div class="col-sm-12">
+                      <button>Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="section-header">
+            <h3>Related Products</h3>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+              viverra at massa sit amet ultricies. Nullam consequat, mauris non
+              interdum cursus
+            </p>
+          </div>
+        </div>
+        {{/with}}
+        <div class="row align-items-center product-slider product-slider-3">
+            {{#each relatedProducts}}
+          <div class="col-lg-3">
+           {{> product}}
+          </div>
+        {{/each}}
+        </div>
+      </div>
+      {{> left-column}}
+    </div>
+  </div>
+</div>
+<!-- Product Detail End -->

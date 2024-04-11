@@ -1,0 +1,245 @@
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#">Products</a></li>
+      <li class="breadcrumb-item active">Checkout</li>
+    </ul>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Checkout Start -->
+<form
+  action="/user/placeOrders"
+  method="POST"
+  novalidate
+ onsubmit="placeOrder(e)"
+>
+  <div class="checkout">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="billing-address">
+            <h2>Shipping Address</h2>
+            <div class="row">
+              <div class="col-md-12">
+                {{#each addresses}}
+                <div class="payment-method">
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input"
+                    id="address-{{id}}" value="{{id}}" {{#if @first}} checked
+                    {{/if}} name="addressId" />
+                    <label class="custom-control-label" for="address-{{id}}"
+                      ><strong>{{firstName}} {{lastName}}</strong></label
+                    >
+                  </div>
+                  <div class="payment-content" id="address-{{id}}-show">
+                    <p>
+                      Email: {{email}}<br />
+                      Mobile: {{mobile}}<br />
+                      Address: {{address}}, {{city}}, {{country}}<br />
+                      {{state}}, {{zipCode}}
+                    </p>
+                  </div>
+                </div>
+                {{/each}}
+
+                <div class="custom-control custom-radio">
+                  <input
+                    type="radio"
+                    class="custom-control-input"
+                    id="shipto"
+                    name="addressId"
+                    value="0"
+                  />
+                  <label class="custom-control-label" for="shipto"
+                    >Ship to different address</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="shipping-address">
+            <h2>Shipping Address</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <label>First Name</label>
+                <input
+                  class="form-control"
+                  required
+                  type="text"
+                  placeholder="First Name"
+                  name="firstName"
+                  value="sinh"
+                />
+              </div>
+              <div class="col-md-6">
+                <label>Last Name"</label>
+                <input
+                
+                  class="form-control"
+                  type="text"
+                  placeholder="Last Name"
+                  name="lastName"
+                  required
+                  value="vien"
+                />
+              </div>
+              <div class="col-md-6">
+                <label>E-mail</label>
+                <input
+                  value="sinhvien@gmail.com"
+                  required
+                  name="email"
+                  class="form-control"
+                  type="email"
+                  placeholder="E-mail"
+                />
+              </div>
+              <div class="col-md-6">
+                <label>Mobile No</label>
+                <input
+                  value="123456"
+                  required
+                  name="mobile"
+                  class="form-control"
+                  type="number"
+                  placeholder="Mobile No"
+                />
+              </div>
+              <div class="col-md-12">
+                <label>Address</label>
+                <input
+                  value="123456 abc"
+                  required
+                  name="address"
+                  class="form-control"
+                  type="text"
+                  placeholder="Address"
+                />
+              </div>
+              <div class="col-md-6">
+                <label>Country</label>
+                <select class="custom-select" name="country">
+                  <option selected>United States</option>
+                  <option>Afghanistan</option>
+                  <option>Albania</option>
+                  <option>Algeria</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label>City</label>
+                <input
+                  value="abc"
+                  required
+                  name="city"
+                  class="form-control"
+                  type="text"
+                  placeholder="City"
+                />
+              </div>
+              <div class="col-md-6">
+                <label>State</label>
+                <input
+                  value="hcmc"
+                  required
+                  name="state"
+                  class="form-control"
+                  type="text"
+                  placeholder="State"
+                />
+              </div>
+              <div class="col-md-6">
+                <label>ZIP Code</label>
+                <input
+                  value="70000"
+                  required
+                  name="zipcode"
+                  class="form-control"
+                  type="text"
+                  placeholder="ZIP Code"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="checkout-summary">
+            {{#with cart}}
+            <h2>Cart Total</h2>
+            <div class="checkout-content">
+              <h3>Products</h3>
+              {{#each items}}
+              <p>{{product.name}} x {{quantity}}<span>${{total}}</span></p>
+
+              {{/each}}
+              <p class="sub-total">Sub Total<span>${{subtotal}}</span></p>
+              <p class="ship-cost">
+                Shipping Cost<span>${{shippingcost}}</span>
+              </p>
+              <h4>Grand Total<span>${{total}}</span></h4>
+            </div>
+            {{/with}}
+          </div>
+
+          <div class="checkout-payment">
+            <h2>Payment Methods</h2>
+            <div class="payment-methods">
+              <div class="payment-method">
+                <div class="custom-control custom-radio">
+                  <input
+                    type="radio"
+                    class="custom-control-input"
+                    id="payment-1"
+                    value="PAYPAL"
+                    name="payment"
+                  />
+                  <label class="custom-control-label" for="payment-1"
+                    >Paypal</label
+                  >
+                </div>
+                <div class="payment-content" id="payment-1-show">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Cras tincidunt orci ac eros volutpat maximus lacinia quis
+                    diam.
+                  </p>
+                </div>
+              </div>
+
+              <div class="payment-method">
+                <div class="custom-control custom-radio">
+                  <input
+                    type="radio"
+                    class="custom-control-input"
+                    id="payment-5"
+                    value="COD"
+                    checked
+                    name="payment"
+                  />
+                  <label class="custom-control-label" for="payment-5"
+                    >Cash on Delivery</label
+                  >
+                </div>
+                <div class="payment-content" id="payment-5-show">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Cras tincidunt orci ac eros volutpat maximus lacinia quis
+                    diam.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="checkout-btn">
+              <button>Place Order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- Checkout End -->

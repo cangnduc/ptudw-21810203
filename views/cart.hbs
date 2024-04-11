@@ -1,0 +1,182 @@
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><a href="/products">Products</a></li>
+      <li class="breadcrumb-item active">Cart</li>
+    </ul>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Cart Start -->
+{{#with cart}}
+<div class="cart-page">
+  <div class="container">
+    {{#if items.length}}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody class="align-middle">
+              {{#each items}}
+              <tr id="product_{{product.id}}">
+                <td>
+                  <a href="/products/{{product.id}}"
+                    ><img src="{{product.imagePath}}" alt="{{product.name}}"
+                  /></a>
+                </td>
+                <td><a href="#">{{product.name}}</a></td>
+                <td>${{product.price}}</td>
+                <td>
+                  <div class="qty">
+                    <button
+                      class="btn-minus"
+                      onclick="updateCart({{product.id}},parseInt(document.getElementById('product{{product.id}}').value)-1)"
+                    >
+                      <i class="fa fa-minus"></i>
+                    </button>
+                    <input
+                      type="number"
+                      id="product{{product.id}}"
+                      value="{{quantity}}"
+                    />
+                    <button
+                      onclick="updateCart({{product.id}},parseInt(document.getElementById('product{{product.id}}').value)+1)"
+                      class="btn-plus"
+                    >
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+                </td>
+                <td id="product-{{product.id}}">${{total}}</td>
+                <td>
+                  <button onclick="removeCart({{product.id}})">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="coupon">
+          <input type="text" placeholder="Coupon Code" />
+          <button>Apply Code</button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="cart-summary">
+          <div class="cart-content">
+            <h3>Cart Summary</h3>
+            <p>Sub Total<span id="subtotal">${{subtotal}}</span></p>
+            <p>Shipping Cost<span>${{shipping}}</span></p>
+            <h4>Grand Total<span id="grandtotal">${{total}}</span></h4>
+          </div>
+          <div class="cart-btn">
+            <button data-toggle="modal" data-target="#exampleModal">
+              Clear Cart
+            </button>
+            <button onclick="window.location.href='/user/checkout'">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{else}}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-warning text-center">
+          <b>No items in cart</b>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+  {{/with}}
+  <!-- Cart End -->
+</div>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Empty Cart</h5>
+      </div>
+      <div class="modal-body">Are you sure to empty your cart?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button onclick="clearCart()" type="button" class="btn btn-primary">
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label"
+              >Recipient:</label
+            >
+            <input type="text" class="form-control" id="recipient-name" />
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>

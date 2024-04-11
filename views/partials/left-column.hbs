@@ -1,0 +1,32 @@
+   <div class="col-md-3">
+                        <div class="sidebar-widget category">
+                            <h2 class="title">Category</h2>
+                            <ul>
+                                {{#each categories}}
+                                <li><a href="/products?category={{id}}">{{name}}</a><span>({{Products.length}})</span></li>
+                               {{/each}}
+                            </ul>
+                        </div>
+                        
+                        <div class="sidebar-widget image">
+                            <h2 class="title">Featured Product</h2>
+                            <a href="#">
+                                <img src="/img/category-1.jpg" alt="Image">
+                            </a>
+                        </div>
+                        
+                        <div class="sidebar-widget brands">
+                            <h2 class="title">Our Brands</h2>
+                            <ul> {{#each brands}}
+                                <li><a href="/products?brand={{id}}">{{name}} </a><span>({{Products.length}})</span></li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        
+                        <div class="sidebar-widget tag">
+                            <h2 class="title">Tags Cloud</h2>
+                           {{#each tags}}
+                            <a href="/products?tag={{id}}">{{name}}</a>
+                           {{/each}}
+                        </div>
+                    </div>
