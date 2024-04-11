@@ -57,6 +57,7 @@
           </div>
           <div class="col-md-3">
             <div class="user">
+              {{#if user}}
               <div class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                   >My Account</a
@@ -66,6 +67,9 @@
                   <a href="#" class="dropdown-item">Register</a>
                 </div>
               </div>
+              {{else}}
+              <a style="padding-left: 10px;" href="/login">Login</a>
+              {{/if}}
               <div class="cart">
                 <a href="/products/cart">
                   <i class="fa fa-cart-plus"></i>
