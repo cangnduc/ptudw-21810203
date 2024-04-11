@@ -1,7 +1,7 @@
 {
   "development": {
     "use_env_variable": "POSTGRESQL_URL",
-   "logging": false
+    "logging": false
   },
 
   "test": {
@@ -14,6 +14,7 @@
   "production": {
     "use_env_variable": "POSTGRESQL_URL",
     "dialect": "postgres",
+    "logging": false,
     "dialectOptions": {
       "ssl": {
         "require": true,
