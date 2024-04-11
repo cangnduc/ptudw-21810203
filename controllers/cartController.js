@@ -11,7 +11,7 @@ controller.addCart = async (req, res) => {
       cart = req.session.cart = new Cart();
     }
     cart.add(product, quantity);
-
+    //console.log("product added to cart"); // for debugging
     res.status(200).json({
       message: "Product added to cart",
       quantity: req.session.cart.quantity,

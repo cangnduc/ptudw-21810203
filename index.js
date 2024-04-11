@@ -1,3 +1,4 @@
+require("dotenv").config();
 let express = require("express");
 let app = express();
 let bodyParser = require("body-parser");
@@ -10,8 +11,8 @@ const session = require("express-session");
 const redisStore = require("connect-redis").default;
 const {createClient} = require("redis");
 const redisClient = createClient({
-  url: "redis://red-cobuum8cmk4c73agcp20:6379",// internal redis
-  //url: "rediss://red-cobuum8cmk4c73agcp20:TpTLm3nHpuUZCd26J8MRcBKt5TnyXSUx@singapore-redis.render.com:6379",
+  //url: "redis://red-cobuum8cmk4c73agcp20:6379",// internal redis
+  url: process.env.REDIS_URL,
 });
 redisClient.connect().catch((err) => {
   console.log(err);
@@ -42,7 +43,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
-    secret: "keyboard",
+    secret: process.env.SESSION_SECRET,
     store: new redisStore({ client: redisClient }),
     resave: false,
     saveUninitialized: false,
