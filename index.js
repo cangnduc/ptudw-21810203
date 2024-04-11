@@ -7,6 +7,15 @@ let renderStar = require("./controllers/renderStar");
 const e = require("express");
 const { createPagination } = require("express-handlebars-paginate");
 const session = require("express-session");
+const redisStore = require("connect-redis").default;
+const {createClient} = require("redis");
+const redisClient = createClient({
+  url: "redis://red-cobuum8cmk4c73agcp20:6379",// internal redis
+  //url: "rediss://red-cobuum8cmk4c73agcp20:TpTLm3nHpuUZCd26J8MRcBKt5TnyXSUx@singapore-redis.render.com:6379",
+});
+redisClient.connect().catch((err) => {
+  console.log(err);
+});
 // use the static files in the public folder
 app.use(express.static(__dirname + "/public"));
 // use the express handlebars
@@ -34,6 +43,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
     secret: "keyboard",
+    store: new redisStore({ client: redisClient }),
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 360000, httpOnly: true }, // 1 hour
