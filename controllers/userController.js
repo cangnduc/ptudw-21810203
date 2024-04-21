@@ -4,7 +4,7 @@ let controller = {};
 
 controller.checkOut = async (req, res) => {
   if (req.session.cart.quantity > 0) {
-    let userId = 1;
+    let userId = req.user.id;
     let addresses = await models.Address.findAll({
       where: {
         userId: userId,
@@ -22,7 +22,7 @@ controller.checkOut = async (req, res) => {
 };
 controller.placeOrders = async (req, res) => {
   let addressId = isNaN(req.body.addressId) ? 0 : parseInt(req.body.addressId);
-
+  let userId = req.user.id;
   let oldaddress = await models.Address.findByPk(addressId);
   if (!oldaddress) {
     let {
@@ -49,7 +49,7 @@ controller.placeOrders = async (req, res) => {
 
       country,
       isDefault: false,
-      userId: 1,
+      userId: userId,
     });
     oldaddress = newAdress;
   }
@@ -70,7 +70,7 @@ controller.placeOrders = async (req, res) => {
   }
 };
 async function saveOrder(req, res, status) {
-  let userId = 1;
+  let userId = req.user.id;
   let { items, ...others } = req.session.cart.getCart();
   let order = await models.Order.create({
     userId: userId,

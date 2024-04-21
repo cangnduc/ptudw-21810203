@@ -3,6 +3,10 @@ const router = express.Router();
 const controller = require("../controllers/userController");
 let { body, validationResult } = require("express-validator");
 const e = require("express");
+const authController = require("../controllers/authController");
+
+
+router.use(authController.isLoggedIn);
 router.get("/checkout", controller.checkOut);
 let checkOut = [
   body("addressId").isNumeric().withMessage("Address is required"),
@@ -58,4 +62,7 @@ router.post(
 
   controller.placeOrders
 );
+router.get("/my-account", (req, res) => {
+  res.status(200).render("my-account");
+});
 module.exports = router;

@@ -57,18 +57,19 @@
           </div>
           <div class="col-md-3">
             <div class="user">
-              {{#if user}}
+              {{#if isLoggedIn}}
               <div class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                   >My Account</a
                 >
                 <div class="dropdown-menu">
-                  <a href="#" class="dropdown-item">Login</a>
-                  <a href="#" class="dropdown-item">Register</a>
+                  <a href="/user/my-account" class="dropdown-item">profile</a>
+                  <a href="/user/wishlist" class="dropdown-item">WishList</a>
+                  <a href="/user/logout" class="dropdown-item">Logout</a>
                 </div>
               </div>
               {{else}}
-              <a style="padding-left: 10px;" href="/login">Login</a>
+              <a style="padding-left: 10px;" href="/user/login">Login</a>
               {{/if}}
               <div class="cart">
                 <a href="/products/cart">

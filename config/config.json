@@ -6,8 +6,8 @@
 
   "test": {
     "username": "postgres",
-    "password": "postgres",
-    "database": "eshopDB",
+    "password": "123456",
+    "database": "eshopdb",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
