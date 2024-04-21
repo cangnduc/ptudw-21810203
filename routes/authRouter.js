@@ -91,6 +91,40 @@ router.post(
   },
   controller.forget
 );
-router.get("/reset", controller.showReset);
-router.post("/reset", controller.resetPassword);
+router.get("/reset", 
+ 
+ controller.showReset);
+router.post("/reset",
+
+ body("email")
+    .isEmail()
+    .withMessage("It is not an email")
+    .notEmpty()
+    .withMessage("Email is required"),
+  body("password")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,100}$/
+    )
+    .withMessage(
+      "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
+    )
+    .notEmpty()
+    .withMessage("Password is required"),
+  body("confirmPassword")
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error("Password confirmation does not match password");
+      }
+      return true;
+    })
+    .notEmpty()
+    .withMessage("Confirm Password is required"),
+    (req, res, next) => {
+      let message = getErrorMessage(req);
+      if (message) {
+        return res.status(200).render("resetPassword",{message});
+      }
+      next();
+    }
+    , controller.resetPassword);
 module.exports = router;
