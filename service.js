@@ -92,4 +92,18 @@ async function registerUser() {
     console.log(err);
   }
 }
-registerUser();
+//registerUser();
+
+async function addUser() {
+  let models = require("./models");
+  let user = await models.User.create({
+    email: "workingatgems@gmail.com",
+    password: "Demo@123",
+    firstName: "John",
+    lastName: "Doe",
+    isAdmin: true,
+    mobile: "1234567890",
+  });
+  console.log(user);
+}
+addUser();
